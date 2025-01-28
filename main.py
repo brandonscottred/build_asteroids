@@ -33,14 +33,23 @@ def main():
 
         for obj in update_group:
             obj.update(dt)
+
         for ast in asteroid_group:
             if ast.collision(player):
                 print("Game Over")
                 sys.exit()
+            for shot in shot_group:
+                if ast.collision(shot):
+                    ast.split()
+                    shot.kill()
+
         screen.fill((0,0,0))
+
         for obj in draw_group:
             obj.draw(screen)
+
         pygame.display.flip()
+
         dt = my_clock.tick(60) / 1000
 
 if __name__ == "__main__":
